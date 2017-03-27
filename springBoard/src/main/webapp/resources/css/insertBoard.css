@@ -1,0 +1,96 @@
+@CHARSET "UTF-8";
+
+* 
+{ 
+	font-size: 9pt;
+	font-family: 굴림; 
+	text-decoration: none; 
+	color: #000;
+	margin-top: 0px;
+	margin-left: 0px   
+}
+
+/* 게시판 쓰기 전체 레이아웃 */
+#wrap 
+{
+	font-size: 9pt;
+	font-family: 굴림; 
+	border-top:1px solid gray;
+	border-right:1px solid gray;
+	width:700px;
+	height:450px;
+	color:#333;
+}
+
+/* 각종 라벨 스타일 */
+.fld_title 
+{ 
+	float:left; 
+	padding:12px 0px 1px 10px;
+	width:100px; 
+	height:25px;
+	font-size:12px; 
+	font-weight:bold;
+	border-left:1px solid gray;
+	border-bottom: 1px solid gray;
+}  
+
+/* 필드 스타일 */               
+.fld_val 
+{      
+	float:left; 
+	padding:10px 0px 3px 10px; 
+	font-size:12px; 
+	width:578px;
+	height:25px;
+	border-left:1px solid gray;
+	border-bottom: 1px solid gray; 
+}
+
+/* 글내용 라벨 스타일 */
+.fld_content_title 
+{ 
+	height:200px;
+} 
+
+/* 글내용 필드 스타일 */               
+.fld_content_val 
+{      
+	height:200px;
+}
+
+/* 전송/취소 버튼 필드 패널 */             
+.btn_fld 
+{      
+	float:left; 
+	text-align:center;
+	padding-top:10px;
+	font-size:12px; 
+	width:700px;
+	height:30px;
+	border-left:1px solid gray;
+	border-bottom: 1px solid gray; 
+}       
+
+/* 입력 필드들 */
+input#userName, input#passwd, input#title,
+input#email, input#homeUrl  
+{ 
+	border:1px solid #ccc;
+	width:20em;
+}
+
+/* 글 내용 필드 */
+textarea#content  
+{
+	border:1px solid #ccc;
+}
+
+
+/* 전송/취소 버튼 */
+input.btn_style 
+{
+	border:1px solid #999;
+	background-color:#ccc; 
+	color:#333;
+}

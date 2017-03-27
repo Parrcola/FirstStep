@@ -1,0 +1,114 @@
+@CHARSET "UTF-8";
+
+* 
+{ 
+	font-size: 9pt;
+	font-family: 굴림; 
+	text-decoration: none; 
+	color: #000;
+	margin-top: 0px;
+	margin-left: 0px   
+}
+
+/* 게시판 쓰기 전체 레이아웃 */
+#wrap 
+{
+	font-size: 9pt;
+	font-family: 굴림; 
+	border-top:1px solid gray;
+	border-right:1px solid gray;
+	width:700px;
+	height:453px;
+	color:#333;
+}
+
+/* 최상단 타이틀 라벨 */
+#board_lbl
+{
+	padding:12px 0px 1px 10px;
+	width:690px; 
+	height:30px;
+	font-size:9pt; 
+	font-weight:bold;
+	border-left:1px solid gray;
+	border-bottom: 1px solid gray;
+	text-align:center;
+	color:white;
+	background-color:#0080c0;
+}
+
+/* 각종 라벨 스타일 */
+.fld_title 
+{ 
+	float:left; 
+	padding:9pt 0px 1px 10px;
+	width:100px; 
+	height:25px;
+	font-size:9pt; 
+	font-weight:bold;
+	border-left:1px solid gray;
+	border-bottom: 1px solid gray;
+}  
+
+/* 필드 스타일 */               
+.fld_val 
+{      
+	float:left; 
+	padding:10px 0px 3px 10px; 
+	font-size:9pt; 
+	width:578px;
+	height:25px;
+	border-left:1px solid gray;
+	border-bottom: 1px solid gray; 
+}
+
+/* 글내용 라벨 스타일 */
+.fld_content_title 
+{ 
+	height:200px;
+} 
+
+/* 글내용 필드 스타일 */               
+.fld_content_val 
+{      
+	height:200px;
+}
+
+/* 하단 메뉴(링크) */
+#bottom_menu
+{
+	float:left; 
+	padding:10px 0px 3px 10px; 
+	font-size:9pt; 
+	width:680px;
+	height:25px;
+	text-align:center;
+}
+
+/* 글자 버튼 */
+a 
+{
+	font-family: "굴림", "Verdana";
+	color: #000000;
+	text-decoration: none
+}
+
+a:link 
+{
+	font-family: 굴림;
+	font-size: 9pt;
+	text-decoration: none;
+}
+
+a:visited 
+{
+	font-family: 굴림;
+	font-size: 9pt;
+	text-decoration: none;
+}
+
+a:hover 
+{
+	font-family: 굴림;
+	text-decoration: underline;
+}

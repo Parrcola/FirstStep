@@ -1,0 +1,144 @@
+@CHARSET "UTF-8";
+
+* 
+{ 
+	font-size: 9pt;
+	font-family: 굴림; 
+	text-decoration: none; 
+	color: #000;
+	margin-top: 0px;
+	margin-left: 0px   
+}
+
+#replyList_vars
+{
+	line-height:15pt;
+	background-color:yellow;
+	width:700px;
+}
+
+/* 게시판 전체 레이아웃 */
+#wrap 
+{
+	width:700px;
+	/* height:450px; */
+	color:#333;
+}
+
+/* 게시판 상단 : 총 정보 */
+#top_board
+{
+	width:700px;
+	height:30px;
+ 	text-align: right; 
+}
+
+/* 게시판 상단 : 타이틀(배경) */
+#board_top
+{
+	text-indent:10px;
+	width:700px;
+	height:30px;
+	background-image : url('../img/skin_2.gif');
+	background-repeat : no-repeat;	
+} 
+
+/* 게시판 관련 */
+.board_row
+{
+	width:700px;
+	height:30px;
+	border:0px;
+	border-bottom: 1px dotted gray; 
+	display: flex;
+ 	justify-content: center; 
+ 	align-items: center;
+}
+
+.board_row_common
+{
+	height:30px;
+	display: flex;
+ 	justify-content: center; /* align horizontal */
+  	align-items: center;     /* align vertical */
+}
+
+
+.board_no
+{
+	text-indent:10px;
+	float:left;
+	width:50px;
+}
+
+.board_title
+{
+	text-indent:50px;
+	float:left;
+	width:310px;
+	justify-content:left; 
+}
+
+.board_date
+{
+	float:left;
+	width:150px;
+}
+
+.board_user_name
+{
+	float:left;
+	width:120px;
+	justify-content: left;
+}
+
+.board_hits
+{
+	float:left;	
+	width:50px;
+}
+
+#board_paging
+{
+	width:700px;
+	height:50px;
+ 	display: flex;
+ 	justify-content: center; /* align horizontal */
+  	align-items: center;     /* align vertical */
+}
+
+#board_menu
+{
+	width:700px;
+	height:50px;
+	text-align:right;
+}
+
+#board_search
+{
+	width:700px;
+	height:50px;
+}
+
+a 
+{ 
+	color: #000000; 
+	text-decoration: none 
+}
+
+a:link 
+{ 
+	font-size:9pt; 
+	text-decoration:none;
+}
+
+a:visited 
+{ 
+	font-size:9pt; 
+	text-decoration:none;
+}
+
+a:hover 
+{ 
+	text-decoration:underline ;
+}		

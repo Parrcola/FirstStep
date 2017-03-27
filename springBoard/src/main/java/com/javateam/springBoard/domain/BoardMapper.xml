@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javateam.springBoard.domain.BoardMapper">
+ 
+	<!-- 게시글 작성 -->
+	<insert id="insertBoard" 
+			parameterType="com.javateam.springBoard.domain.BoardVo">
+		INSERT INTO board
+		(
+			 articleId, 
+			 title, 
+			 userName, 
+			 writeDate, 
+			 type, 
+			 email, 
+			 homeUrl,
+			 hits,
+			 passwd, 
+			 content
+		 ) 
+		 VALUES  
+		(
+			 seq_board.nextval, 
+			 #{title}, 
+			 #{userName}, 
+			 sysdate, 
+			 #{type}, 
+			 #{email}, 
+			 #{homeUrl},
+			 0,
+			 #{passwd}, 
+			 #{content}
+		 )
+	</insert>
+	
+	<!-- 게시글 조회 -->
+	<select id="getBoard"
+			parameterType="int" 
+			resultType="com.javateam.springBoard.domain.BoardVo">
+		SELECT * FROM board 
+		      WHERE articleid = #{articleid}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateHits" 
+			parameterType="int">
+		UPDATE board
+		     set hits = hits + 1
+	     WHERE articleid = #{articleid}  
+	</update>
+	
+	<!-- 게시글 패쓰워드 조회 -->
+	<select id="getBoardPw"
+			parameterType="int" 
+			resultType="String">
+		SELECT passwd FROM board
+		      WHERE articleid = #{articleid}
+	</select>
+	
+	<!-- 게시판 -->
+	<!-- 인자
+		search_gubun : String
+		search_word : String
+	 -->
+	<select id="getReplyList1" 
+			parameterType="com.javateam.springBoard.domain.SearchVo" 
+			resultType="int">
+			
+		 SELECT count(articleid)
+		   		FROM board 
+		      WHERE 1=1
+		      
+        <if test="search_gubun == 1">
+        	and title like '%'||'${search_word}'||'%'
+        </if>
+        <if test="search_gubun == 2">
+            and userName like '%'||'${search_word}'||'%'
+        </if>
+        
+	</select>
+	
+	<select id="getReplyList2" 
+			parameterType="com.javateam.springBoard.domain.SearchVo" 
+			resultType="int">
+			
+		SELECT count(articleid) 
+		      FROM board 
+	      WHERE to_char(writeDate,'yyyymmdd') = to_char(sysdate,'yyyymmdd')
+	      
+        <if test="search_gubun == 1">
+        	and title like '%'||'${search_word}'||'%'
+        </if>
+        <if test="search_gubun == 2">
+            and userName like '%'||'${search_word}'||'%'
+        </if>
+        
+	</select>
+	
+	<select id="getReplyList3" 
+			parameterType="com.javateam.springBoard.domain.SearchVo" 
+			resultType="int">
+			
+		SELECT distinct(a.articleid) 
+		     FROM (SELECT * FROM board 
+		     		WHERE type='I') a,
+		     	  (SELECT * FROM board WHERE type='R') b
+	       			WHERE 1=1	
+	    
+	    <choose>   			
+	        <when test="search_gubun == 1">
+	        	and a.title like '%'||'${search_word}'||'%'
+	        	and a.articleid = b.parent_Articleid(+)
+	          ORDER BY a.articleid ASC
+	        </when>
+	        <when test="search_gubun == 2">
+	            and a.userName like '%'||'${search_word}'||'%'
+	            and a.articleid = b.parent_Articleid(+)
+	          ORDER BY a.articleid ASC 
+	        </when>
+	        <otherwise>
+	      		and a.articleid = b.parent_Articleid(+)
+      		  ORDER BY a.articleid ASC
+	        </otherwise>
+        </choose>
+	</select>
+	
+	<select id="getReplyList4" 
+			parameterType="int" 
+			resultType="com.javateam.springBoard.domain.BoardMap">
+			
+			SELECT articleid,
+				   title,
+				   to_char( writeDate,'yyyy/mm/dd hh:mi') as writeDate,
+			       userName,
+			       hits,
+			       type 
+		       FROM board
+				   START WITH articleid in ( #{articleid}  ) 
+				   CONNECT BY parent_Articleid = prior articleid
+	</select>		
+	
+	<!-- 답글(댓글) 작성 -->
+	<insert id="replyWriteBoard" 
+			parameterType="com.javateam.springBoard.domain.BoardVo">
+		
+		INSERT INTO board
+		 			(articleId, 
+  				     title,
+  				     userName,
+  				     writeDate,
+  				     type,
+  				     email,
+  				     homeUrl,
+  				     hits,
+  				     passwd,
+  				     parent_articleid,
+  				     content ) 
+  				     VALUES 
+					(seq_board.nextval, 
+					 #{title}, 
+					 #{userName}, 
+					 sysdate, 
+					 #{type}, 
+					 #{email}, 
+					 #{homeUrl},
+					 0,
+					 #{passwd}, 
+					 #{parentArticleid},
+					 #{content})
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="updateBoard" 
+			parameterType="com.javateam.springBoard.domain.BoardVo">
+		UPDATE board SET
+		     title = #{title},
+			 passwd = #{passwd},
+			 email = #{email}, 
+			 homeUrl = #{homeUrl}, 
+			 content = #{content},
+			 writeDate = sysdate
+			 WHERE articleid = #{articleid}
+	</update>
+	
+	<!-- 게시글 삭제 : 원글/댓글 동시 삭제
+	
+	     참고) 원글을 삭제할 경우 게시판의 정책에 따라 
+	     원글/댓글 동시 삭제하거나 답글이 있을 경우
+	     삭제하지 못하도록 변경 조치할 수 있습니다.
+	      -->
+	<delete id="deleteBoard" parameterType="int">
+	  	DELETE board 
+    		WHERE articleid=#{articleid}
+          	   or parent_articleid=#{articleid}
+	</delete>
+	
+<!-- 	
+	<delete id="deleteBoard" 
+				parameterType="com.javateam.springBoard.domain.DeleteVo">
+	  	DELETE board
+    		WHERE articleid=${articleid}
+    		<if test="type='I'">
+          	   or parent_articleid=${articleid}
+          	</if>   
+	</delete> -->
+
+</mapper>
